@@ -7,7 +7,18 @@ import { useEffect } from "react";
 
 export default function Home() {
   useEffect(() => {
-    // render midtrans snap token
+    const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js"
+    const clientKey = process.env.NEXT_PUBLIC_CLIENT
+    const script = document.createElement("script")
+    script.src = snapScript
+    script.setAttribute("data-client-key", clientKey)
+    script.async = true
+
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
   }, []);
 
   return (
@@ -19,6 +30,7 @@ export default function Home() {
             alt="..."
             width={250}
             height={250}
+            priority
             className="w-full object-cover"
           />
           <div className="border border-gray-100 bg-white p-6">
